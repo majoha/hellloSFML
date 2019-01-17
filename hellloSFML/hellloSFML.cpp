@@ -19,7 +19,11 @@ int main()
 	Texture textureBackground;
 	textureBackground.loadFromFile("graphics/background.png");
 	Sprite spriteBackground;
+	Sprite spriteBackground1;
+
 	spriteBackground.setTexture(textureBackground);
+	spriteBackground1.setTexture(textureBackground);
+
 	
 	while (window.isOpen())
 	{
@@ -29,12 +33,13 @@ int main()
 		}
 
 
-		spriteBackground.setPosition(i++, 0);
+		spriteBackground.setPosition(0, 0);
 
 
 
 		window.clear();
 		window.draw(spriteBackground);
+		window.draw(spriteBackground1);
 		window.display();
 
 	}
