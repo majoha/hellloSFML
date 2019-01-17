@@ -2,13 +2,14 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
-#include "player.h";
+#include "player.h"
 
 using namespace std;
 using namespace sf;
 
 int main()
 {
+	//This is a test
 	VideoMode vm(1280, 800);
 	RenderWindow window(vm, "Hello, world", Style::Fullscreen);
 
