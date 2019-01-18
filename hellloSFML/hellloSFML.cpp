@@ -9,9 +9,6 @@ using namespace sf;
 
 int main()
 {
-
-	int i = 0;
-
 	//This is a test
 	VideoMode vm(1280, 800);
 	RenderWindow window(vm, "Hello, world", Style::Fullscreen);
