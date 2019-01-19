@@ -14,7 +14,7 @@ int main()
 	RenderWindow window(vm, "Hello, world", Style::Fullscreen);
 
 	Texture textureBackground;
-	textureBackground.loadFromFile("graphics/background.png");
+	textureBackground.loadFromFile("graphics/sample.png");
 	Sprite spriteBackground;
 	Sprite spriteBackground1;
 

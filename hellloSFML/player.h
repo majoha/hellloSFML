@@ -8,15 +8,15 @@ class player
 private: const float START_SPEED = 200;
 private: const float START_HEALTH = 100;
 
-		 Vector2f m_position;
+		 Vector2f m_Position;
 
-		 Sprite m_sprite;
+		 Sprite m_Sprite;
 
-		 Texture m_texture;
+		 Texture m_Texture;
 
-		 Vector2f m_resolution;
+		 Vector2f m_Resolution;
 
-		 IntRect m_arena;
+		 IntRect m_Arena;
 
 		 int m_TileSize;
 
@@ -38,7 +38,9 @@ public:
 	void spawn(IntRect arena, Vector2f resolution, int tileSize);
 	void resetPlayerStats();
 
-	bool hitTime(Time timeHit);
+	Time getLastHitTime();
+
+	bool hit(Time timeHit);
 	
 	FloatRect getPosition();
 
