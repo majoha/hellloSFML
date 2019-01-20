@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include "ZombieArena.h"
 #include "player.h"
 
 using namespace std;
@@ -10,7 +11,6 @@ using namespace sf;
 
 int main()
 {
-
 	enum class State
 	{
 		PAUSED, LEVELING_UP, GAME_OVER, PLAYING
@@ -37,6 +37,11 @@ int main()
 
 	IntRect arena;
 
+	VertexArray background;
+
+	Texture backgroundTexture;
+	backgroundTexture.loadFromFile("graphics/background_sheet.png");
+
 	while (window.isOpen())
 	{
 		/*
@@ -62,7 +67,7 @@ int main()
 				}
 				else if (event.key.code == Keyboard::Return && state == State::GAME_OVER)
 				{
-					state = State::PLAYING;
+					state = State::LEVELING_UP;
 				}
 				if (state == State::PLAYING)
 				{
@@ -151,8 +156,9 @@ int main()
 				arena.height = 500;
 				arena.left = 0;
 				arena.top = 0;
-				// We will modify this line of code later
-				int tileSize = 50;
+
+				int tileSize = createBackground(background, arena);
+
 				// Spawn the player in the middle of the arena
 				player.spawn(arena, resolution, tileSize);
 				// Reset the clock so there isn't a frame jump
@@ -203,6 +209,8 @@ int main()
 			window.clear();
 
 			window.setView(mainView);
+
+			window.draw(background, &backgroundTexture);
 
 			window.draw(player.getSprite());
 
