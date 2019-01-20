@@ -3,7 +3,6 @@
 
 player::player()
 {
-	const String graphicsLocation = "graphics/";
 
 	m_Speed = START_SPEED;
 	m_Health = START_HEALTH;
@@ -29,6 +28,50 @@ void player::spawn(IntRect arena, Vector2f resolution, int tileSize)
 
 	m_Resolution.x = resolution.x;
 	m_Resolution.y = resolution.y;
+}
+
+void player::update(float elapsedTime, Vector2i mousePosition)
+{
+	if (m_UpPressed)
+	{
+		m_Position.y -= m_Speed * elapsedTime;
+	}
+	else if (m_DownPressed)
+	{
+		m_Position.y += m_Speed * elapsedTime;
+	}
+	else if (m_LeftPressed)
+	{
+		m_Position.x -= m_Speed * elapsedTime;
+	}
+	else if (m_RightPressed)
+	{
+		m_Position.x += m_Speed * elapsedTime;
+	}
+
+	m_Sprite.setPosition(m_Position);
+
+
+	if (m_Position.x > m_Arena.width - m_TileSize)
+	{
+		m_Position.x = m_Arena.width - m_TileSize;
+	}
+	else if (m_Position.x < m_Arena.left + m_TileSize)
+	{
+		m_Position.x = m_Arena.left + m_TileSize;
+	}
+	else if (m_Position.y > m_Arena.height - m_TileSize)
+	{
+		m_Position.y = m_Arena.height - m_TileSize;
+	}
+	else if (m_Position.y < m_Arena.top + m_TileSize)
+	{
+		m_Position.y = m_Arena.top + m_TileSize;
+	}
+
+	float angle = (atan2(mousePosition.y - m_Resolution.y / 2, mousePosition.x - m_Resolution.x / 2 * 180) / 3.141);
+
+	m_Sprite.setRotation(angle);
 }
 
 void player::resetPlayerStats()
@@ -57,32 +100,32 @@ bool player::hit(Time timeHit)
 	}
 }
 
-FloatRect player::getPosition() 
+FloatRect player::getPosition()
 {
 	return m_Sprite.getGlobalBounds();
 }
 
-Vector2f player::getCenter() 
+Vector2f player::getCenter()
 {
 	return m_Position;
 }
 
-float player::getRotation() 
+float player::getRotation()
 {
 	return m_Sprite.getRotation();
 }
 
-Sprite player::getSprite() 
+Sprite player::getSprite()
 {
 	return m_Sprite;
 }
 
-int player::getHealth() 
+int player::getHealth()
 {
 	return m_Health;
 }
 
-void player::moveUp() 
+void player::moveUp()
 {
 	m_UpPressed = true;
 }
@@ -110,4 +153,34 @@ void player::stopUp()
 void player::stopDown()
 {
 	m_DownPressed = false;
+}
+
+void player::stopLeft()
+{
+	m_LeftPressed = false;
+}
+
+void player::stopRight()
+{
+	m_RightPressed = false;
+}
+
+void player::upgradeSpeed()
+{
+	m_Speed += (START_SPEED * 0.2);
+}
+
+void player::upGradeHealth()
+{
+	m_Health += (START_HEALTH * 0.2);
+}
+
+void player::increaseHealthLevel(int amount)
+{
+	m_Health += amount;
+
+	if (m_Health > m_MaxHealth)
+	{
+		m_Health = m_MaxHealth;
+	}
 }
